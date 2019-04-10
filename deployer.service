@@ -1,0 +1,12 @@
+[Unit]
+Description=Deployer daemon
+After=network.target
+
+[Service]
+User=deploy
+Group=deploy
+WorkingDirectory=/home/deploy
+ExecStart=/usr/bin/python3 -m pipenv run gunicorn --bind 0.0.0.0:5000 app:app
+
+[Install]
+WantedBy=multi-user.target
