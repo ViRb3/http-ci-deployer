@@ -29,7 +29,10 @@ deploy:
   script:
     # define DEPLOY_FILE, DEPLOY_KEY, DEPLOY_URL
     - >
-      curl -F file=@$DEPLOY_FILE -H "KEY: $DEPLOY_KEY" "$DEPLOY_URL"
+      STATUS=$(curl --write-out %{http_code} --silent --output /dev/null
+      -F file=@$DEPLOY_FILE -H "KEY: $DEPLOY_KEY" "$DEPLOY_URL/$DEPLOY_FILE")
+    - |
+      [ "$STATUS" == "200" ] || exit 1
 ```
 
 ## Installation
