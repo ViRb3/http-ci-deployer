@@ -39,7 +39,7 @@ echo "SUPER_LONG_AND_SECRET_KEY" > key.txt
 
 2. Run the webserver
 ```bash
-deployer.exe --port 5000
+/home/deploy/deployer-amd64 --port 5000
 ```
 
 3. *(optional)* Install the systemd unit [deployer.service](deployer.service). Make sure you tweak or satisfy the configuration inside it.
