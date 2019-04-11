@@ -32,7 +32,12 @@ func main() {
 			return
 		}
 		path := c.Param("path")[1:]
-		c.SaveUploadedFile(file, path)
+		err = c.SaveUploadedFile(file, path)
+		if err != nil {
+			log.Println(err)
+			c.AbortWithStatus(500)
+			return
+		}
 		log.Printf("Deployed to: %s", path)
 		c.Status(200)
 	})
