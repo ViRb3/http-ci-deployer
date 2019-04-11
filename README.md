@@ -1,17 +1,19 @@
 # HTTP CI Deployer
-An extremely simple HTTP-based deployment solution for Continuous Integration services. Originally designed for GitLab's CI/CD.
+An extremely simple HTTP-based deployment solution for Continuous Integration services. Originally designed as a safer, simpler alternative to SSH and SCP for GitLab's CI/CD.
 
 ## Usage
 ### General
-This project exposes a single wildcard endpoint:
+A single wildcard endpoint is exposed:
 ```
 /deploy/*
 ```
-If you want to deploy the file `localfile.zip` to `archive/localfile.zip`, you would submit a request to:
+If you want to deploy the file `localfile.zip` to `archive/localfile.zip`, you would submit:
 ```
-/deploy/archive/localfile.zip
+POST /deploy/archive/localfile.zip
+Form data: file=localfile.zip
+Headers: KEY=DEPLOYMENT_KEY_HERE
 ```
-Note that all deployment paths are relative to the working directory of the project!
+Note that all deployment paths are relative to the working directory of the deployer binary!
 
 ### Curl command
 ```bash
@@ -21,7 +23,6 @@ curl -F file=@localfile.zip -H "KEY: 123" "https://website.com/archive/localfile
 ### GitLab CI/CD stage
 ```yml
 deploy:
-  stage: deploy
   before_script:
     - apt update -y
     - apt install curl -y
@@ -32,7 +33,7 @@ deploy:
 ```
 
 ## Installation
-1. Set a deployment key in `key.txt`. This will be checked before accepting a deployment
+1. Set a deployment key in `key.txt`. It must be longer than **10 characters** or you will get a `bad key` error.
 ```bash
 echo "SUPER_LONG_AND_SECRET_KEY" > key.txt
 ```
