@@ -21,7 +21,7 @@ func main() {
 
 	router := gin.Default()
 
-	router.POST("/upload/*path", func(c *gin.Context) {
+	router.POST("/deploy/*path", func(c *gin.Context) {
 		if key != c.GetHeader("KEY") {
 			c.AbortWithStatus(403)
 			return
