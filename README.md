@@ -32,26 +32,14 @@ deploy:
 ```
 
 ## Installation
-1. Clone this repo
-2. Set a deployment key in `key.txt`. This will be checked before accepting a deployment
+1. Set a deployment key in `key.txt`. This will be checked before accepting a deployment
 ```bash
 echo "SUPER_LONG_AND_SECRET_KEY" > key.txt
 ```
 
-2. Install `pipenv`
-
+2. Run the webserver
 ```bash
-python3 -m pip install pipenv
+deployer.exe --port 5000
 ```
 
-3. Run `pipenv update`
-```bash
-python3 -m pipenv update
-```
-
-4. Run the webserver
-```bash
-python3 -m pipenv run gunicorn --bind 0.0.0.0:5000 app:app
-```
-
-5. *(optional)* Install the systemd unit `deployer.service`. Make sure you tweak or satisfy the user and path configuration inside it.
+3. *(optional)* Install the systemd unit [deployer.service](deployer.service). Make sure you tweak or satisfy the configuration inside it.

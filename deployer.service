@@ -6,7 +6,7 @@ After=network.target
 User=deploy
 Group=deploy
 WorkingDirectory=/home/deploy
-ExecStart=/usr/bin/python3 -m pipenv run gunicorn --bind 0.0.0.0:5000 app:app
+ExecStart=/home/deploy/deployer.exe --port 5000
 
 [Install]
 WantedBy=multi-user.target
