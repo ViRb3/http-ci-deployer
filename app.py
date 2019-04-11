@@ -4,8 +4,8 @@ from flask import Flask, request, redirect, flash
 app = Flask(__name__)
 
 with open('key.txt', 'r') as file:
-    KEY = file.read()
-
+    KEY: str = file.read()
+assert len(KEY.strip()) > 10, "bad key"
 
 @app.route('/deploy/<path:path>', methods=['POST'])
 def deploy(path):
