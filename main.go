@@ -32,8 +32,8 @@ func main() {
 			return
 		}
 		path := c.Param("path")[1:]
-		log.Printf("Deployed to: %s", path)
 		c.SaveUploadedFile(file, path)
+		log.Printf("Deployed to: %s", path)
 		c.Status(200)
 	})
 
