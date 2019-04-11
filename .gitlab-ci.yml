@@ -1,0 +1,14 @@
+image: golang:latest
+
+build:
+    stage: build
+    script:
+      - mkdir build
+      - GOOS=linux GOARCH=386 go build -ldflags "-s -w" -o build/deployer-386
+      - GOOS=linux GOARCH=amd64 go build -ldflags "-s -w" -o build/deployer-amd64
+      - GOOS=linux GOARCH=arm go build -ldflags "-s -w" -o build/deployer-arm
+      - GOOS=linux GOARCH=arm64 go build -ldflags "-s -w" -o build/deployer-arm64
+      - GOOS=windows GOARCH=amd64 go build -ldflags "-s -w" -o build/deployer-amd64.exe
+    artifacts:
+      paths:
+        - build
