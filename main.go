@@ -38,7 +38,7 @@ func main() {
 			c.AbortWithStatus(500)
 			return
 		}
-		log.Printf("Deployed to: %s", path)
+		log.Println("Deployed to:", path)
 		c.Status(200)
 	})
 
