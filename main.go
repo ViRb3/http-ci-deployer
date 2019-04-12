@@ -14,8 +14,8 @@ func main() {
 	flag.Parse()
 
 	keyFile, err := ioutil.ReadFile("key.txt")
-	key := string(keyFile)
-	if err != nil || len(strings.TrimSpace(key)) < 10 {
+	key := strings.TrimSpace(string(keyFile))
+	if err != nil || len(key) < 10 {
 		panic("bad key")
 	}
 
