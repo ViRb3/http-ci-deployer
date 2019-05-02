@@ -7,12 +7,8 @@ A single wildcard endpoint is exposed:
 ```
 /deploy/*
 ```
-If you want to deploy the file `localfile.zip` to `archive/localfile.zip`, you would submit:
-```
-POST /deploy/archive/localfile.zip
-Form data: file=localfile.zip
-Headers: KEY=DEPLOYMENT_KEY_HERE
-```
+If you want to deploy `localfile.zip` to `archive/localfile.zip`, you would submit a `POST` request to: `/deploy/archive/localfile.zip`, with the file content as form data and the deployment key as a `KEY` header.
+
 Note that all deployment paths are relative to the working directory of the deployer binary!
 
 ### Curl command
@@ -20,9 +16,12 @@ Note that all deployment paths are relative to the working directory of the depl
 curl -F file=@localfile.zip -H "KEY: 123" "https://website.com/archive/localfile.zip"
 ```
 
-### GitLab CI/CD stage
+### GitLab CI/CD
+#### Example job
 ```yml
 deploy:
+  image: ubuntu
+  stage: deploy
   before_script:
     - apt update -y
     - apt install curl -y
@@ -34,9 +33,13 @@ deploy:
     - |
       [ "$STATUS" == "200" ] || exit 1
 ```
+#### Example variables
+* DEPLOY_FILE: `localfile.zip`
+* DEPLOY_KEY: `123`
+* DEPLOY_URL: `https://website.com/archive`
 
 ## Installation
-1. Set a deployment key in `key.txt`. It must be longer than **10 characters** or you will get a `bad key` error.
+1. Set a deployment key in `key.txt` in the deployer's working directory. It must be longer than **10 characters** or you will get a `bad key` error.
 ```bash
 echo "SUPER_LONG_AND_SECRET_KEY" > key.txt
 ```
