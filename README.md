@@ -16,8 +16,33 @@ Note that all deployment paths are relative to the working directory of the depl
 curl -F file=@localfile.zip -H "KEY: 123" "https://website.com/archive/localfile.zip"
 ```
 
-### GitLab CI/CD
-#### Example job
+### CI/CD
+Example variables:
+* DEPLOY_FILE: `localfile.zip`
+* DEPLOY_KEY: `123`
+* DEPLOY_URL: `https://website.com/archive`
+#### Drone CI
+```yml
+steps:
+- name: deploy
+  image: ubuntu
+  environment:
+    DEPLOY_FILE: "file.pdf"
+    # add secrets from web interface
+    DEPLOY_KEY:
+      from_secret: DEPLOY_KEY
+    DEPLOY_URL:
+      from_secret: DEPLOY_URL
+  commands:
+  - apt update -y
+  - apt install curl -y
+  - >
+    STATUS=$(curl --write-out %{http_code} --silent --output /dev/null
+    -F file=@$DEPLOY_FILE -H "KEY: $DEPLOY_KEY" "$DEPLOY_URL/$DEPLOY_FILE")
+  - >
+    [ "$STATUS" = "200" ] || exit 1
+  ```
+#### GitLab
 ```yml
 deploy:
   image: ubuntu
@@ -30,13 +55,9 @@ deploy:
     - >
       STATUS=$(curl --write-out %{http_code} --silent --output /dev/null
       -F file=@$DEPLOY_FILE -H "KEY: $DEPLOY_KEY" "$DEPLOY_URL/$DEPLOY_FILE")
-    - |
+    - >
       [ "$STATUS" == "200" ] || exit 1
 ```
-#### Example variables
-* DEPLOY_FILE: `localfile.zip`
-* DEPLOY_KEY: `123`
-* DEPLOY_URL: `https://website.com/archive`
 
 ## Installation
 1. Set a deployment key in `key.txt` in the deployer's working directory. It must be longer than **10 characters** or you will get a `bad key` error.
