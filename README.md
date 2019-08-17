@@ -13,7 +13,7 @@ Note that all deployment paths are relative to the working directory of the depl
 
 ### Curl command
 ```bash
-curl -F file=@localfile.zip -H "KEY: 123" "https://website.com/archive/localfile.zip"
+curl -F file=@localfile.zip -H "KEY: 123" "https://website.com/deploy/archive/localfile.zip"
 ```
 
 ### CI/CD
@@ -22,7 +22,7 @@ Example variables:
 
 Example secrets:
 * DEPLOY_KEY: `123`
-* DEPLOY_URL: `https://website.com/archive`
+* DEPLOY_URL: `https://website.com/deploy/archive`
 
 #### Drone CI
 ```yml
