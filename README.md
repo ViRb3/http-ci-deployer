@@ -41,6 +41,8 @@ steps:
     STATUS=$(curl --write-out %{http_code} --silent --output /dev/null
     -F file=@$DEPLOY_FILE -H "KEY: $DEPLOY_KEY" "$DEPLOY_URL/$DEPLOY_FILE")
   - >
+    echo "Result: $STATUS"
+  - >
     [ "$STATUS" = "200" ] || exit 1
 ```
 
@@ -56,6 +58,8 @@ deploy:
     - >
       STATUS=$(curl --write-out %{http_code} --silent --output /dev/null
       -F file=@$DEPLOY_FILE -H "KEY: $DEPLOY_KEY" "$DEPLOY_URL/$DEPLOY_FILE")
+    - >
+      echo "Result: $STATUS"
     - >
       [ "$STATUS" == "200" ] || exit 1
 ```
