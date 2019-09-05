@@ -28,15 +28,14 @@ Example secrets:
 ```yml
 steps:
 - name: deploy
-  image: ubuntu
+  image: alpine
   environment:
     DEPLOY_KEY:
       from_secret: DEPLOY_KEY
     DEPLOY_URL:
       from_secret: DEPLOY_URL
   commands:
-  - apt update -y
-  - apt install curl -y
+  - apk add --no-cache curl
   - >
     STATUS=$(curl --write-out %{http_code} --silent --output /dev/null
     -F file=@$DEPLOY_FILE -H "KEY: $DEPLOY_KEY" "$DEPLOY_URL/$DEPLOY_FILE")
@@ -50,10 +49,9 @@ steps:
 ```yml
 deploy:
   image: ubuntu
-  stage: deploy
+  stage: alpine
   before_script:
-    - apt update -y
-    - apt install curl -y
+    - apk add --no-cache curl
   script:
     - >
       STATUS=$(curl --write-out %{http_code} --silent --output /dev/null
