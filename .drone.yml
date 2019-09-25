@@ -13,7 +13,7 @@ steps:
   - go test -race
 
 - name: build
-  image: golang:1.13.0-buster
+  image: golang:1.13-alpine3.10
   commands:
   - ln -s $PWD /build
   - cd /build
