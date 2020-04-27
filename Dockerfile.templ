@@ -1,0 +1,9 @@
+FROM {{ .Env.ARCH }}/alpine:3.11
+
+WORKDIR /
+
+COPY "dist/{{ .Env.DRONE_REPO_NAME }}_{{ .Env.DIST_NAME }}/{{ .Env.DRONE_REPO_NAME }}" /deployer
+
+ENV GIN_MODE=release
+ENTRYPOINT ["/deployer", "--port", "8080"]
+EXPOSE 8080
