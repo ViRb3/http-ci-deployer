@@ -7,7 +7,7 @@ User=deploy
 Group=deploy
 WorkingDirectory=/home/deploy
 Environment=GIN_MODE=release
-ExecStart=/home/deploy/deployer-amd64 --port 5000
+ExecStart=/home/deploy/deployer --port 5000
 
 [Install]
 WantedBy=multi-user.target
