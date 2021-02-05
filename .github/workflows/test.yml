@@ -26,6 +26,6 @@ jobs:
 
       - name: Version
         if: success()
-        uses: cycjimmy/semantic-release-action@v2.3.0
+        uses: cycjimmy/semantic-release-action@v2.5.3
         env:
           GITHUB_TOKEN: ${{ secrets.API_GITHUB_TOKEN }}
