@@ -4,14 +4,14 @@ WORKDIR /src
 COPY . .
 
 RUN go mod download && \
-    CGO_ENABLED=0 go build -ldflags="-s -w" -o "release-bin"
+    CGO_ENABLED=0 go build -ldflags="-s -w" -o "bin-release"
 
 FROM alpine:3.13.1
 
 WORKDIR /
 
-COPY --from=builder "/src/release-bin" "/deployer"
+COPY --from=builder "/src/bin-release" "/"
 
 ENV GIN_MODE=release
-ENTRYPOINT ["/deployer", "--port", "8080"]
+ENTRYPOINT ["/bin-release", "--port", "8080"]
 EXPOSE 8080
