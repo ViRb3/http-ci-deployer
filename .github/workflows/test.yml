@@ -18,7 +18,7 @@ jobs:
 
       - name: Docker Prepare
         if: success()
-        uses: crazy-max/ghaction-docker-buildx@v1.4.0
+        uses: crazy-max/ghaction-docker-buildx@v3.3.1
 
       - name: Docker Build Test
         if: success()
