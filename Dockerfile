@@ -6,7 +6,7 @@ COPY . .
 RUN go mod download && \
     CGO_ENABLED=0 go build -ldflags="-s -w" -o "http-ci-deployer"
 
-FROM alpine:3.14.3
+FROM alpine:3.15.3
 
 WORKDIR /
 
